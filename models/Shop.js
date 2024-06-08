@@ -12,10 +12,10 @@ const LocationSchema = new Schema({
 });
 
 const ShopSchema = new Schema({
-  name: String,
-  openingHours: String,
-  logo: String,
-  description: String,
+  name: { type: String, required: true },
+  openingHours: { type: String, required: true },
+  logo: { type: String, required: true },
+  description: { type: String, required: true },
   locations: [LocationSchema],
   loyaltyDeals: { type: Schema.Types.ObjectId, ref: 'LoyaltyDeal' },
   subscriptionDeals: [{ type: Schema.Types.ObjectId, ref: 'SubscriptionDeal' }],

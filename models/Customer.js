@@ -35,6 +35,13 @@ const CustomerSchema = new Schema({
 
 CustomerSchema.index({ email: 1 });
 
-const Customer = mongoose.model('Customer', CustomerSchema);
+CustomerSchema.pre('save', async function(next) {
+  if (!this.isModified('password')) {
+      return next();
+  }
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+  next();
+});
 
-module.exports = { Customer };
+module.exports = mongoose.model('Customer', CustomerSchema);
