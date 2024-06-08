@@ -1,9 +1,14 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const User = require('../models/User');
+const { validationResult } = require('express-validator');
 require('dotenv').config();
 
 const registerShopUser = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
     const { email, password, firstName, role, shop } = req.body;
     try {
         let user = await User.findOne({ email });
@@ -23,6 +28,10 @@ const registerShopUser = async (req, res) => {
 };
 
 const loginShopUser = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
     const { email, password } = req.body;
     try {
         const user = await User.findOne({ email });

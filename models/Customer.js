@@ -28,9 +28,9 @@ const CustomerSchema = new Schema({
   password: { type: String, required: true },
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
-  loyaltyCards: { type: [LoyaltyCardSchema], required: true },
-  subscriptionCards: { type: [SubscriptionCardSchema], required: true },
-  stampHistory: { type: [StampHistorySchema], required: true },
+  loyaltyCards: { type: [LoyaltyCardSchema] },
+  subscriptionCards: { type: [SubscriptionCardSchema] },
+  stampHistory: { type: [StampHistorySchema] },
 });
 
 CustomerSchema.index({ email: 1 });
